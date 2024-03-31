@@ -11,6 +11,9 @@ const MAX_BRIGHTNESS_FILE: &str = "/sys/class/backlight/intel_backlight/max_brig
 
 
 fn make_comm_pipe() -> bool {
+    let mut make_pipe_command = Command::new("rm");
+    make_pipe_command.arg("/run/brightness");
+    make_pipe_command.status().expect("Unable to execute rm");
     let mut make_pipe_command = Command::new("mkfifo");
     make_pipe_command.arg("/run/brightness");
     make_pipe_command.status().expect("Unable to execute mkfifo").success()
