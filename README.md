@@ -3,6 +3,6 @@ A simple service to change the brightness on intel backlight laptops. Or if you 
 
 The service creates a named pipe at `/run/brightness`.
 
-You can write values to this named pipe. Any bad value is ignored.
+You can write number values to this named pipe or `inc` / `dec` for step increase / decrease. Any bad value is ignored.
 
 This service should have minimal CPU usage as it is waiting for the named pipe almost all the time.
