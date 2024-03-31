@@ -1,5 +1,5 @@
-# Intel backlight setter
-A simple service to change the brightness on intel backlight laptops. Or if you have other backlight manufacturer - you can change the file paths.
+# Backlight setter
+A simple service to change the brightness of the backlight on laptops (defaults to intel backlight, but can be changed in `main.rs`).
 
 The service creates a named pipe at `/run/brightness` (can be changed in `main.rs`).
 

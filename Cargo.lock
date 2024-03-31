@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "intel-backlight-setter"
+name = "backlight-setter"
 version = "0.1.0"
