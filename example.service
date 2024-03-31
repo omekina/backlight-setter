@@ -1,8 +1,0 @@
-[Unit]
-Description=Intel backlight setter service
-
-[Service]
-ExecStart=intel-backlight-setter
-
-[Install]
-WantedBy=multi-user.target
