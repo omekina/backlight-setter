@@ -1,6 +1,8 @@
 use std::{io::{Read, Write}, process::Command};
 
 
+const FIFO_PATH: &str = "/run/brightness";
+
 /**
 * In percent
 */
@@ -15,7 +17,7 @@ fn make_comm_pipe() -> bool {
     make_pipe_command.arg("/run/brightness");
     make_pipe_command.status().expect("Unable to execute rm");
     let mut make_pipe_command = Command::new("mkfifo");
-    make_pipe_command.arg("/run/brightness");
+    make_pipe_command.arg(FIFO_PATH);
     make_pipe_command.status().expect("Unable to execute mkfifo").success()
 }
 
@@ -23,7 +25,7 @@ fn make_comm_pipe() -> bool {
 fn change_comm_pipe_perms() -> bool {
     let mut change_perm_command = Command::new("chmod");
     change_perm_command.arg("666");
-    change_perm_command.arg("/run/brightness");
+    change_perm_command.arg(FIFO_PATH);
     change_perm_command.status().expect("Unable to execute chmod").success()
 }
 
@@ -68,7 +70,7 @@ fn main() {
     let step = max_brightness / 100 * CHANGE_STEP;
     let mut current_brightness = read_current_brightness();
     loop {
-        let mut pipe_handle = std::fs::File::open("/run/brightness").expect("Could not open the named pipe");
+        let mut pipe_handle = std::fs::File::open(FIFO_PATH).expect("Could not open the named pipe");
         match read_brightness(current_brightness, step, &mut pipe_handle) {
             Some(value) => current_brightness = value,
             None => { continue; },
